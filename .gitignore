@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+.env
+coverage
+coverage.json
+typechain
+
+deployments/hardhat.json
+deployments/localhost.json
+
+#Hardhat files
+cache
+artifacts

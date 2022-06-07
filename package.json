@@ -1,0 +1,11 @@
+{
+  "name": "hardhat-project",
+  "private": true,
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "2.0.6",
+    "hardhat": "2.9.7"
+  },
+  "dependencies": {
+    "dotenv": "16.0.1"
+  }
+}
