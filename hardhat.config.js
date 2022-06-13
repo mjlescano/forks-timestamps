@@ -7,6 +7,9 @@ require('@nomiclabs/hardhat-ethers')
 
 const contractName = 'Timestamp';
 
+const getDeploymentPath = (hre) =>
+  path.resolve(__dirname, 'deployments', `${hre.network.name}.json`)
+
 task('deploy', async (_, hre) => {
   const factory = await hre.ethers.getContractFactory(contractName)
   const contract = await factory.deploy()
@@ -15,7 +18,7 @@ task('deploy', async (_, hre) => {
   await contract.deployed()
   console.log('Contract deployed to:', contract.address)
 
-  const deploymentPath = path.resolve(__dirname, 'deployments', `${hre.network.name}.json`)
+  const deploymentPath = getDeploymentPath(hre)
   await fs.writeFile(
     deploymentPath,
     JSON.stringify({ [contractName]: contract.address }, null, 2)
@@ -23,8 +26,7 @@ task('deploy', async (_, hre) => {
 })
 
 task('timestamps', async (_, hre) => {
-  const deploymentPath = path.resolve(__dirname, 'deployments', `${hre.network.name}.json`)
-  const deployment = require(deploymentPath)
+  const deployment = require(getDeploymentPath(hre))
 
   const Timestamp = await hre.ethers.getContractAt(contractName, deployment[contractName])
 
@@ -50,10 +52,6 @@ module.exports = {
   networks: {
     ['optimistic-mainnet']: {
       url: 'https://mainnet.optimism.io',
-      accounts: process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLOYER_PRIVATE_KEY] : [],
-    },
-    ['fork-ba617aa0-5f89-48b2-83b2-70be696b4359']: {
-      url: 'https://rpc.tenderly.co/fork/ba617aa0-5f89-48b2-83b2-70be696b4359',
       accounts: process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLOYER_PRIVATE_KEY] : [],
     },
   },

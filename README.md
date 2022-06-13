@@ -1,15 +1,3 @@
-# Basic Sample Hardhat Project
+# Get Contract Timestamp
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+This project includes a simple Solidity contract to get the current value of `block.timestamp`. This was only necessary for a case were the forks I was using of Optimism on Tenderly had a different `timestamp` value between the last mined block and `block.timestamp`, which was returning `Date.now()`.
